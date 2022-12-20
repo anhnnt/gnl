@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 size_t	ft_strlen(const char *str)
 {
@@ -36,8 +37,11 @@ static char	*get_line(int fd, char *buff, char *backup)
 		else if (ret == 0)
 			break ;
 		buff[ret] = '\0';
+		printf("Ret here: %d", ret);
+		printf("Buff here: %s", buff);
 		if (!backup)
 			backup = ft_strdup("");
+		printf("Back up here: %s", backup);
 		temp = backup;
 		backup = ft_strjoin(backup, buff);
 		free(temp);
@@ -53,8 +57,10 @@ static char	*split(char *line)
 	char	*backup;
 	int		nl_pos;
 
+	printf("Line: %s", line);
+	printf("Backup: %s", backup);	
 	nl_pos = 0;
-	while (line[nl_pos] != '\n' && *line)
+	while (line[nl_pos] != '\n' && line[nl_pos] != '\0')
 		nl_pos++;
 	if (line[nl_pos] == '\0' || line[1] == '\0')
 		return (0);
@@ -65,6 +71,8 @@ static char	*split(char *line)
 		backup = NULL;
 	}
 	line[nl_pos + 1] = '\0';
+	printf("Line after: %s", line);
+	printf("Backup after: %s", backup);	
 	return (backup);
 }
 
